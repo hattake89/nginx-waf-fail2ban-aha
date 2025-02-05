@@ -18,6 +18,7 @@ RUN apt update && apt install -y \
     libyajl-dev \
     doxygen \
     liblua5.3-dev \
+    libmodsecurity-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone and build ModSecurity
@@ -35,14 +36,16 @@ RUN git clone --depth 1 -b v3/master https://github.com/SpiderLabs/ModSecurity.g
 RUN git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git
 
 # Download and extract Nginx source for module compilation
-RUN wget http://nginx.org/download/nginx-$(nginx -v 2>&1 | awk -F'/' '{print $2}').tar.gz \
-    && tar -xzf nginx-*.tar.gz
+RUN NGINX_VERSION=$(nginx -v 2>&1 | awk -F'/' '{print $2}') \
+    && wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
+    && tar -xzf nginx-$NGINX_VERSION.tar.gz \
+    && mv nginx-$NGINX_VERSION nginx-src
 
-WORKDIR /usr/local/src/nginx-*/
+WORKDIR /usr/local/src/nginx-src/
 RUN ./configure \
     --with-compat \
     --add-dynamic-module=../ModSecurity-nginx \
-    && make modules \
+    && make modules || (cat objs/autoconf.err && exit 1) \
     && cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules/
 
 # Cleanup source files
