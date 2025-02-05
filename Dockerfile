@@ -59,8 +59,8 @@ RUN rm -rf /usr/local/src/*
 # Copy configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY modsecurity.conf /etc/nginx/modsecurity.conf
-COPY sites-available/ /etc/nginx/sites-available/
-COPY sites-enabled/ /etc/nginx/sites-enabled/
+#COPY sites-available/ /etc/nginx/sites-available/
+#COPY sites-enabled/ /etc/nginx/sites-enabled/
 COPY fail2ban/jail.local /etc/fail2ban/jail.local
 COPY fail2ban/nginx-ddos.conf /etc/fail2ban/filter.d/nginx-ddos.conf
 
