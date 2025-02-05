@@ -49,15 +49,9 @@ RUN ./configure \
     && cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules/
 
 # Download and extract OWASP CRS
-#WORKDIR /etc/nginx
-#RUN git clone --depth 1 https://github.com/coreruleset/coreruleset.git owasp-crs && mv owasp-crs/crs-setup.conf.example owasp-crs/crs-setup.conf
-#/etc/nginx/owasp-crs
-
-RUN git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git /usr/src/owasp-modsecurity-crs
-RUN cp -R /usr/src/owasp-modsecurity-crs/rules/ /etc/nginx/owasp-modsecurity-crs/
-RUN mv /etc/nginx/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example  /etc/nginx/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf 
-RUN mv /etc/nginx/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example  /etc/nginx/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf 
-
+WORKDIR /etc/nginx
+RUN git clone --depth 1 https://github.com/coreruleset/coreruleset.git owasp-crs \
+    && mv owasp-crs/crs-setup.conf.example owasp-crs/crs-setup.conf
 
 # Cleanup source files
 RUN rm -rf /usr/local/src/*
