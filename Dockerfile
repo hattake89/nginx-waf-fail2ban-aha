@@ -17,8 +17,7 @@ RUN apt update && apt install -y \
     libxml2-dev \
     libyajl-dev \
     doxygen \
-    lua5.3 \
-    lua5.3-dev \
+    liblua5.3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone and build ModSecurity
