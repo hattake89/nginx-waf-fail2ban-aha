@@ -14,7 +14,7 @@ services:
       - ./sites-available:/etc/nginx/sites-available
       - ./sites-enabled:/etc/nginx/sites-enabled
       - ./fail2ban:/etc/fail2ban
-      - /etc/ssl/certfile:/cert
+      - ./certfile:/cert
     networks:
       - proxy_network
     command: ["/bin/bash", "-c", "service fail2ban start && nginx -g 'daemon off;'"]
