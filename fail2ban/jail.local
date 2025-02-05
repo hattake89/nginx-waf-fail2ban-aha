@@ -1,0 +1,9 @@
+### fail2ban/jail.local ###
+[nginx-ddos]
+enabled = true
+port = http,https
+filter = nginx-ddos
+logpath = /var/log/nginx/access.log
+maxretry = 100
+findtime = 60
+bantime = 3600
