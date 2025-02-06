@@ -9,6 +9,9 @@ IPTABLES_MODE=${IPTABLES_MODE:-auto}
 echo "Initializing files and folders..."
 mkdir -p /data/db /data/action.d /data/filter.d /data/jail.d
 #ln -sf /data/jail.d /etc/fail2ban/
+ln -sf /fail2ban/jail.conf /data/jail.d/
+ln -sf /fail2ban/jail.local /data/jail.d/
+ln -sf /fail2ban/nginx-ddos.conf /data/filter.d/
 
 # Fail2ban conf
 echo "Setting Fail2ban configuration..."
