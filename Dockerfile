@@ -72,6 +72,7 @@ RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
     && echo 'Include /etc/nginx/owasp-crs/rules/*.conf' >> /etc/nginx/modsecurity.conf
 
 # Start Fail2Ban service and keep container running
-CMD service fail2ban start && nginx -g "daemon off;"
+CMD service nginx -g "daemon off;"
+#fail2ban start &&
 
 
