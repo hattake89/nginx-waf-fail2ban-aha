@@ -12,8 +12,10 @@ mkdir -p /data/db /data/action.d /data/filter.d /data/jail.d
 ln -sf /fail2ban/jail.conf /data/jail.d/
 ln -sf /fail2ban/paths-common.conf /data/jail.d/
 ln -sf /fail2ban/paths-debian.conf /data/jail.d/
+ln -sf /fail2ban/paths-overrides.local /data/jail.d/
 ln -sf /fail2ban/jail.local /data/jail.d/
 ln -sf /fail2ban/nginx-ddos.conf /data/filter.d/
+ln -sf /fail2ban/defaults-debian.conf /data/
 
 # Fail2ban conf
 echo "Setting Fail2ban configuration..."
@@ -22,6 +24,10 @@ sed -i "s/loglevel =.*/loglevel = $F2B_LOG_LEVEL/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbfile =.*/dbfile = \/data\/db\/fail2ban\.sqlite3/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/dbpurgeage =.*/dbpurgeage = $F2B_DB_PURGE_AGE/g" /etc/fail2ban/fail2ban.conf
 sed -i "s/#allowipv6 =.*/allowipv6 = auto/g" /etc/fail2ban/fail2ban.conf
+
+# default conf
+rm -f "/etc/fail2ban/jail.d/defaults-debian.conf"
+ln -sf "/data/defaults-debian.conf" "/etc/fail2ban/jail.d/"
 
 # Check custom actions
 echo "Checking for custom conf in /data/jail.d..."
