@@ -13,7 +13,8 @@ services:
       - ./owasp-crs:/etc/nginx/owasp-crs
       - ./sites-available:/etc/nginx/sites-available
       - ./sites-enabled:/etc/nginx/sites-enabled
-      - ./fail2ban:/etc/fail2ban/confs
+      #- ./fail2ban:/etc/fail2ban/confs
+      - ./data:/data
       - ./certfile:/cert
     networks:
       - proxy_network

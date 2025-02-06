@@ -5,6 +5,8 @@ RUN apt update && apt install -y \
     gcc \
     g++ \
     make \
+	iptables \
+    iptables-legacy \
     automake \
     autoconf \
     libtool \
@@ -62,8 +64,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY modsecurity.conf /etc/nginx/modsecurity.conf
 COPY sites-available/ /etc/nginx/sites-available/
 COPY sites-enabled/ /etc/nginx/sites-enabled/
-COPY fail2ban/jail.local /etc/fail2ban/jail.local
-COPY fail2ban/nginx-ddos.conf /etc/fail2ban/filter.d/nginx-ddos.conf
+#COPY fail2ban/jail.local /etc/fail2ban/jail.local
+#COPY fail2ban/nginx-ddos.conf /etc/fail2ban/filter.d/nginx-ddos.conf
 
 # Enable ModSecurity module and load OWASP CRS
 RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
@@ -72,7 +74,13 @@ RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
     && echo 'Include /etc/nginx/owasp-crs/rules/*.conf' >> /etc/nginx/modsecurity.conf
 
 # Start Fail2Ban service and keep container running
+
 CMD nginx -g "daemon off;"
-CMD service fail2ban start
+
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "fail2ban-server", "-f", "-x", "-v", "start" ]
+#CMD service fail2ban start
 
 
