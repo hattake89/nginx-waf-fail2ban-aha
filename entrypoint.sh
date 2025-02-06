@@ -11,6 +11,7 @@ mkdir -p /data/db /data/action.d /data/filter.d /data/jail.d
 #ln -sf /data/jail.d /etc/fail2ban/
 ln -sf /fail2ban/jail.conf /data/jail.d/
 ln -sf /fail2ban/paths-common.conf /data/jail.d/
+ln -sf /fail2ban/paths-debian.conf /data/jail.d/
 ln -sf /fail2ban/jail.local /data/jail.d/
 ln -sf /fail2ban/nginx-ddos.conf /data/filter.d/
 
