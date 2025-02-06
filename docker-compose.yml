@@ -11,10 +11,8 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./modsecurity.conf:/etc/nginx/modsecurity.conf
       - ./owasp-crs:/etc/nginx/owasp-crs
-      - ./sites-available:/etc/nginx/sites-available
       - ./sites-enabled:/etc/nginx/sites-enabled
-      #- ./fail2ban:/etc/fail2ban/confs
-      - ./data:/data
+      - ./log:/var/log/nginx
       - ./certfile:/cert
     networks:
       - proxy_network
