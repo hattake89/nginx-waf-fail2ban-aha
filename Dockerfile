@@ -60,10 +60,10 @@ RUN rm -rf /usr/local/src/*
 # Copy configuration files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY modsecurity.conf /etc/nginx/modsecurity.conf
-#COPY sites-available/ /etc/nginx/sites-available/
-#COPY sites-enabled/ /etc/nginx/sites-enabled/
-#COPY fail2ban/jail.local /etc/fail2ban/jail.local
-#COPY fail2ban/nginx-ddos.conf /etc/fail2ban/filter.d/nginx-ddos.conf
+COPY sites-available/ /etc/nginx/sites-available/
+COPY sites-enabled/ /etc/nginx/sites-enabled/
+COPY fail2ban/jail.local /etc/fail2ban/jail.local
+COPY fail2ban/nginx-ddos.conf /etc/fail2ban/filter.d/nginx-ddos.conf
 
 # Enable ModSecurity module and load OWASP CRS
 RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
@@ -72,7 +72,7 @@ RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
     && echo 'Include /etc/nginx/owasp-crs/rules/*.conf' >> /etc/nginx/modsecurity.conf
 
 # Start Fail2Ban service and keep container running
-CMD service nginx -g "daemon off;"
-#fail2ban start &&
+CMD nginx -g "daemon off;"
+CMD service fail2ban start
 
 

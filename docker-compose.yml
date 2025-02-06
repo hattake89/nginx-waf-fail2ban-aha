@@ -13,11 +13,11 @@ services:
       - ./owasp-crs:/etc/nginx/owasp-crs
       - ./sites-available:/etc/nginx/sites-available
       - ./sites-enabled:/etc/nginx/sites-enabled
-      - ./fail2ban:/etc/fail2ban
+      - ./fail2ban:/etc/fail2ban/confs
       - ./certfile:/cert
     networks:
       - proxy_network
-    command: ["/bin/bash", "-c", "service fail2ban start && nginx -g 'daemon off;'"]
+    #command: ["/bin/bash", "-c", "service fail2ban start && nginx -g 'daemon off;'"]
 
 networks:
   proxy_network:
