@@ -76,7 +76,7 @@ RUN echo 'load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;' \
 
 CMD nginx -g "daemon off;"
 
-COPY entrypoint.sh /entrypoint.sh
+COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "fail2ban-server", "-f", "-x", "-v", "start" ]
