@@ -6,7 +6,6 @@ RUN apt update && apt install -y \
     g++ \
     make \
 	iptables \
-    iptables-legacy \
     automake \
     autoconf \
     libtool \
