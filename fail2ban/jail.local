@@ -1,3 +1,25 @@
+# File:
+# "./fail2ban-data/jail.d/jail.local"
+
+# The DEFAULT allows a global definition of the options.
+# They can be override in each jail afterwards.
+
+[DEFAULT]
+# Number of seconds that a host is banned.
+bantime  = 18000 # ban for 5 hours
+
+# "ignoreip" can be an IP address, a CIDR mask or a DNS host.
+# Fail2ban will not ban a host which matches an address in this list.
+# Several addresses can be defined using space separator.
+ignoreip = 127.0.0.1/8
+
+# attempts must occur within the 10-minute
+findtime = 600
+
+# How many attempts can be made before a ban is imposed
+maxretry = 3
+
+
 ### fail2ban/jail.local ###
 [nginx-ddos]
 enabled = true
